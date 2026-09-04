@@ -1,0 +1,115 @@
+$hack-void: #020709;
+$hack-ink: #bcd6d4;
+$hack-muted: #66888b;
+$hack-line: #174149;
+$hack-panel: #061014;
+$hack-phosphor: #54e3c1;
+$hack-amber: #ddb35b;
+
+Screen {
+    background: $hack-void;
+    color: $hack-ink;
+}
+
+#topbar {
+    height: 3;
+    padding: 0 2;
+    background: #061216;
+    border-bottom: tall #1b4c54;
+    color: $hack-ink;
+}
+
+#workspace {
+    height: 1fr;
+    layout: grid;
+    grid-size: 2 2;
+    grid-columns: 1fr 32;
+    grid-rows: 3fr 2fr;
+    grid-gutter: 0 1;
+    padding: 0 1;
+    background: $hack-void;
+}
+
+.panel {
+    height: 1fr;
+    background: $hack-panel;
+    border: round $hack-line;
+    border-title-color: #7fbdb7;
+    border-title-style: bold;
+    padding: 0 1;
+}
+
+#spectrum {
+    min-height: 10;
+}
+
+#metrics {
+    min-width: 28;
+    min-height: 10;
+    color: $hack-ink;
+}
+
+#waterfall {
+    column-span: 2;
+    min-height: 7;
+    padding: 0;
+    border-title-color: #549c9b;
+}
+
+#statusline {
+    height: 1;
+    padding: 0 2;
+    background: #0a181c;
+    color: $hack-muted;
+}
+
+#status-state {
+    width: 17;
+}
+
+#status-detail {
+    width: 1fr;
+    color: #759597;
+}
+
+#measurement-badge {
+    width: 24;
+    content-align: right middle;
+    color: $hack-amber;
+    text-style: bold;
+}
+
+Footer {
+    height: 1;
+    background: #071317;
+    color: #84a6a6;
+}
+
+Footer > .footer--key {
+    background: #17363b;
+    color: $hack-phosphor;
+    text-style: bold;
+}
+
+Footer > .footer--description {
+    background: #071317;
+    color: #779394;
+}
+
+HelpScreen {
+    align: center middle;
+    background: #000000 72%;
+}
+
+#help-dialog {
+    width: 58;
+    height: 21;
+    padding: 1 2;
+    background: #071419;
+    border: round #3eb89e;
+}
+
+#help-copy {
+    width: 1fr;
+    height: 1fr;
+}
