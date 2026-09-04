@@ -206,6 +206,11 @@ def list_devices(
     stderr = _coerce_text(result.stderr)
     combined = "\n".join(part for part in (stdout, stderr) if part)
     devices = parse_hackrf_info(combined)
+    # Some firmware/tool combinations report a failure for optional metadata
+    # (for example, board revision) after returning a complete device block.
+    # A parsed serial number is enough to select and use the radio.
+    if devices:
+        return devices
     if result.returncode == 0:
         return devices
     lowered = combined.lower()

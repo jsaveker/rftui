@@ -225,6 +225,38 @@ def test_parse_and_list_multiple_devices_without_shell() -> None:
     assert calls[0][1]["timeout"] == 5.0
 
 
+def test_device_discovery_accepts_complete_device_before_optional_metadata_failure() -> None:
+    output = """\
+hackrf_info version: 2026.01.3
+libhackrf version: 2026.01.3 (0.9.2)
+Found HackRF
+Index: 0
+Serial number: 000000000000000046d067dc231c6047
+Board ID Number: 2 (HackRF One)
+Firmware Version: v1.5.4 (API:1.06)
+Part ID Number: 0xa000cb3c 0x00704755
+"""
+
+    def partial_probe(argv: list[str], **_: Any) -> subprocess.CompletedProcess[str]:
+        return subprocess.CompletedProcess(
+            argv,
+            1,
+            output,
+            "hackrf_board_rev_read() failed: Pipe error (-1000)",
+        )
+
+    assert list_devices(runner=partial_probe) == [
+        DeviceInfo(
+            index=0,
+            serial_number="000000000000000046d067dc231c6047",
+            board_name="HackRF One",
+            board_id=2,
+            firmware_version="v1.5.4 (API:1.06)",
+            part_id="0xa000cb3c 0x00704755",
+        )
+    ]
+
+
 def test_device_discovery_distinguishes_no_device_missing_tool_and_failure() -> None:
     def no_device(argv: list[str], **_: Any) -> subprocess.CompletedProcess[str]:
         return subprocess.CompletedProcess(argv, 1, "", "No HackRF boards found.")
